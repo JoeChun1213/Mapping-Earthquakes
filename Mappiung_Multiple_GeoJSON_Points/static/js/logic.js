@@ -2,15 +2,7 @@
 console.log("working");
 
 // Create the map object with a center and zoom level.
-// Create the map object with a center and zoom level.
-let map = L.map("mapid").setView([34.0522, -118.2437], 14);
-
-//  Add a marker to the map for Los Angeles, California.
-L.circleMarker([34.0522, -118.2437], {
-	radius: 300,
-	color: "black",
-	fillColor: '#ffffa1'
- }).addTo(map);
+let map = L.map("mapid").setView([30, 30], 2);
 
 // We create the tile layer that will be the background of our map.
 let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -21,3 +13,13 @@ attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap
 
 // Then we add our 'graymap' tile layer to the map.
 streets.addTo(map);
+
+// Accessing the airport GeoJSON URL
+let airportData = "https://raw.githubusercontent.com/<GitHub_name>/Mapping_Earthquakes/master/majorAirports.json";
+
+// Grabbing our GeoJSON data.
+d3.json(airportData).then(function(data) {
+    console.log(data);
+  // Creating a GeoJSON layer with the retrieved data.
+  L.geoJson(data).addTo(map);
+});
